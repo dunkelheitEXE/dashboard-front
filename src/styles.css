@@ -1,1 +1,227 @@
-/* You can add global styles to this file, and also import other style files */
+/* Estilos globales */
+:root {
+  color-scheme: dark;
+  --bg: #0f172a;
+  --surface: #1e293b;
+  --surface-2: #334155;
+  --border: #334155;
+  --text: #e2e8f0;
+  --text-muted: #94a3b8;
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --danger: #f87171;
+  --success: #34d399;
+  --radius: 10px;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* --- Formularios de autenticación (login / signup) --- */
+.auth {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.auth__card {
+  width: 100%;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 32px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+.auth__header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.auth__title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.auth__subtitle {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field__label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.field__optional {
+  font-weight: 400;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+.field__input {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 0.9375rem;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.field__input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+.field__input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+}
+
+.field__error {
+  font-size: 0.75rem;
+  color: var(--danger);
+}
+
+.auth__alert {
+  margin: 0;
+  padding: 10px 12px;
+  font-size: 0.8125rem;
+  border-radius: 8px;
+}
+
+.auth__alert--error {
+  color: var(--danger);
+  background: rgba(248, 113, 113, 0.12);
+  border: 1px solid rgba(248, 113, 113, 0.35);
+}
+
+.auth__alert--success {
+  color: var(--success);
+  background: rgba(52, 211, 153, 0.12);
+  border: 1px solid rgba(52, 211, 153, 0.35);
+}
+
+.auth__submit {
+  margin-top: 4px;
+  padding: 11px 16px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--primary);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.auth__submit:hover:not(:disabled) {
+  background: var(--primary-hover);
+}
+
+.auth__submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.auth__switch {
+  margin: 0;
+  font-size: 0.8125rem;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.auth__switch a {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.auth__switch a:hover {
+  text-decoration: underline;
+}
+
+/* --- Botones reutilizables --- */
+.icon-btn {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.icon-btn:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.btn {
+  padding: 9px 16px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn--primary {
+  color: #fff;
+  background: var(--primary);
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: var(--primary-hover);
+}
+
+.btn--ghost {
+  color: var(--text-muted);
+  background: transparent;
+  border-color: var(--border);
+}
+
+.btn--ghost:hover:not(:disabled) {
+  color: var(--text);
+  background: var(--surface-2);
+}

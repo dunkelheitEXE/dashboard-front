@@ -1,0 +1,73 @@
+<dialog #dialog class="modal">
+  <form class="modal__form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <header class="modal__head">
+      <h2 class="modal__title">Nueva nota</h2>
+      <button
+        class="icon-btn"
+        type="button"
+        (click)="close()"
+        aria-label="Cerrar"
+      >
+        ✕
+      </button>
+    </header>
+
+    <label class="field">
+      <span class="field__label">Título</span>
+      <input
+        class="field__input"
+        type="text"
+        formControlName="title"
+        placeholder="Sin título"
+        autofocus
+      />
+      @if (form.controls.title.touched && form.controls.title.invalid) {
+        <span class="field__error">El título es obligatorio</span>
+      }
+    </label>
+
+    <label class="field">
+      <span class="field__label">Estado</span>
+      <select class="field__input" formControlName="status">
+        @for (option of statuses; track option.value) {
+          <option [value]="option.value">{{ option.label }}</option>
+        }
+      </select>
+    </label>
+
+    <div class="modal__dates">
+      <label class="field">
+        <span class="field__label">Fecha de inicio</span>
+        <input class="field__input" type="date" formControlName="start_date" />
+      </label>
+
+      <label class="field">
+        <span class="field__label">Fecha de fin</span>
+        <input class="field__input" type="date" formControlName="end_date" />
+      </label>
+    </div>
+
+    <label class="field">
+      <span class="field__label">Contenido</span>
+      <textarea
+        class="field__input field__input--area"
+        rows="5"
+        formControlName="content"
+        placeholder="Escribe algo…"
+      ></textarea>
+    </label>
+
+    @if (error()) {
+      <p class="auth__alert auth__alert--error">{{ error() }}</p>
+    }
+
+    <footer class="modal__foot">
+      <button class="btn btn--ghost" type="button" (click)="close()">
+        Cancelar
+      </button>
+      <button class="btn btn--primary" type="submit" [disabled]="loading()">
+        {{ loading() ? 'Creando…' : 'Crear nota' }}
+      </button>
+    </footer>
+  </form>
+</dialog>

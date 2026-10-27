@@ -1,0 +1,89 @@
+<div
+  class="layout"
+  [class.is-collapsed]="collapsed()"
+  [class.is-mobile-open]="mobileOpen()"
+>
+  <aside class="sidebar">
+    <div class="sidebar__head">
+      <a class="brand" routerLink="/dashboard" (click)="closeMobile()">
+        <span class="brand__mark">N</span>
+        <span class="brand__text">Notas</span>
+      </a>
+      <button
+        class="icon-btn sidebar__collapse"
+        type="button"
+        (click)="toggleCollapsed()"
+        [attr.aria-label]="collapsed() ? 'Expandir menú' : 'Colapsar menú'"
+      >
+        {{ collapsed() ? '»' : '«' }}
+      </button>
+    </div>
+
+    <nav class="sidebar__nav">
+      <p class="sidebar__section">Espacio</p>
+
+      <a
+        class="nav-link"
+        routerLink="/dashboard"
+        routerLinkActive="nav-link--active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="closeMobile()"
+      >
+        <span class="nav-link__icon">🏠</span>
+        <span class="nav-link__label">Inicio</span>
+      </a>
+    </nav>
+
+    <div class="sidebar__foot">
+      <div class="user">
+        <span class="user__avatar">{{ initials() }}</span>
+        <span class="user__name">{{ displayName() }}</span>
+      </div>
+      <button
+        class="icon-btn"
+        type="button"
+        (click)="logout()"
+        aria-label="Cerrar sesión"
+        title="Cerrar sesión"
+      >
+        ⎋
+      </button>
+    </div>
+  </aside>
+
+  <button
+    class="scrim"
+    type="button"
+    (click)="closeMobile()"
+    aria-label="Cerrar menú"
+  ></button>
+
+  <main class="content">
+    <header class="topbar">
+      <button
+        class="icon-btn topbar__menu"
+        type="button"
+        (click)="toggleMobile()"
+        aria-label="Abrir menú"
+      >
+        ☰
+      </button>
+      <span class="topbar__title">Dashboard</span>
+      <button
+        class="topbar__new"
+        type="button"
+        (click)="openCreateNote()"
+        aria-label="Crear nota"
+        title="Crear nota"
+      >
+        +
+      </button>
+    </header>
+
+    <div class="content__body">
+      <router-outlet />
+    </div>
+  </main>
+
+  <app-create-note />
+</div>

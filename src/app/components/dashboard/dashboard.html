@@ -1,0 +1,51 @@
+<section class="notes">
+  <header class="notes__head">
+    <h1 class="notes__title">Notas</h1>
+    <span class="notes__count">{{ notes().length }}</span>
+  </header>
+
+  @if (loading()) {
+    <p class="notes__state">Cargando notas…</p>
+  } @else if (error()) {
+    <p class="auth__alert auth__alert--error">{{ error() }}</p>
+  } @else if (notes().length === 0) {
+    <p class="notes__state">
+      Todavía no hay notas. Crea una con el botón “+”.
+    </p>
+  } @else {
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Estado</th>
+            <th>Creada</th>
+            <th>Actualizada</th>
+            <th>Inicio</th>
+            <th>Fin</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (note of notes(); track note.id) {
+            <tr>
+              <td class="table__id">{{ note.id }}</td>
+              <td class="table__title">{{ note.title }}</td>
+              <td>{{ note.author_name || note.author_username || '—' }}</td>
+              <td>
+                <span [class]="'badge badge--' + note.status">
+                  {{ statusLabel(note.status) }}
+                </span>
+              </td>
+              <td>{{ note.created_at }}</td>
+              <td>{{ note.updated_at }}</td>
+              <td>{{ note.start_date }}</td>
+              <td>{{ note.end_date }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</section>
