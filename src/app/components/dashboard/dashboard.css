@@ -80,42 +80,75 @@
   color: var(--text);
 }
 
-/* --- Badges de estado --- */
-.badge {
-  display: inline-block;
-  padding: 3px 10px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  border-radius: 999px;
-  border: 1px solid transparent;
+.table__muted {
+  color: var(--text-muted);
 }
 
-.badge--todo {
-  color: #cbd5e1;
-  background: rgba(148, 163, 184, 0.15);
-  border-color: rgba(148, 163, 184, 0.35);
+/* La celda de asignados puede crecer en varias líneas */
+.table__assignees {
+  min-width: 140px;
+  white-space: normal;
 }
 
-.badge--inprogress {
-  color: #93c5fd;
-  background: rgba(59, 130, 246, 0.15);
-  border-color: rgba(59, 130, 246, 0.35);
+.table__action-head,
+.table__action {
+  width: 1%;
+  text-align: center;
 }
 
-.badge--done {
-  color: #6ee7b7;
-  background: rgba(16, 185, 129, 0.15);
-  border-color: rgba(16, 185, 129, 0.35);
+.table__action {
+  padding: 6px 8px;
 }
 
-.badge--blocked {
-  color: #fca5a5;
+.table__actions-head,
+.table__actions {
+  text-align: center;
+  width: 1%;
+}
+
+.icon-link {
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  transition: background 0.15s ease;
+}
+
+.icon-link:hover {
+  background: var(--surface-2);
+}
+
+.icon-btn--danger:hover {
   background: rgba(239, 68, 68, 0.15);
-  border-color: rgba(239, 68, 68, 0.35);
 }
 
-.badge--inreview {
-  color: #fcd34d;
-  background: rgba(245, 158, 11, 0.15);
-  border-color: rgba(245, 158, 11, 0.35);
+.table__muted {
+  color: var(--text-muted);
 }
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.chip {
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  color: var(--text);
+  background: var(--surface-2);
+  border-radius: 999px;
+}
+
+.table__actions-head,
+.table__actions {
+  text-align: right;
+}
+
+.actions {
+  display: inline-flex;
+  gap: 4px;
+}
+
+/* Los estilos de .badge viven en src/styles.css (los comparte la vista de detalle). */

@@ -1,6 +1,11 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-import { CreateNotePayload, Note, NotesService } from './notes.service';
+import {
+  CreateNotePayload,
+  Note,
+  NotesService,
+  UpdateNotePayload,
+} from './notes.service';
 
 /**
  * Estado compartido de las notas. La tabla (Dashboard) lo lee y el modal de
@@ -38,6 +43,29 @@ export class NotesStore {
   create(payload: CreateNotePayload): Observable<Note> {
     return this.notesService.createNote(payload).pipe(
       tap((note) => this._notes.update((notes) => [note, ...notes])),
+    );
+  }
+
+  /** Elimina una nota y la quita de la lista. */
+  remove(id: number): Observable<Note> {
+    return this.notesService.deleteNote(id).pipe(
+      tap(() =>
+        this._notes.update((notes) => notes.filter((note) => note.id !== id)),
+      ),
+    );
+  }
+
+  /** Actualiza una nota y la reemplaza en la lista. */
+  update(id: number, payload: UpdateNotePayload): Observable<Note> {
+    return this.notesService
+      .updateNote(id, payload)
+      .pipe(tap((note) => this.replace(note)));
+  }
+
+  /** Reemplaza una nota de la lista (tras editarla). */
+  replace(note: Note): void {
+    this._notes.update((notes) =>
+      notes.map((item) => (item.id === note.id ? note : item)),
     );
   }
 }

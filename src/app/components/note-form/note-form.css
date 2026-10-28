@@ -1,5 +1,5 @@
 .modal {
-  width: min(520px, calc(100vw - 32px));
+  width: min(560px, calc(100vw - 32px));
   padding: 0;
   color: var(--text);
   background: var(--surface);
@@ -32,13 +32,7 @@
   font-weight: 700;
 }
 
-.modal__row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-.modal__dates {
+.modal__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
@@ -46,7 +40,7 @@
 
 .field__input--area {
   resize: vertical;
-  min-height: 100px;
+  min-height: 120px;
   font-family: inherit;
 }
 

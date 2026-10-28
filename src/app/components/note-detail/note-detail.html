@@ -1,0 +1,151 @@
+@if (loading()) {
+  <p class="note__state">Cargando nota…</p>
+} @else if (!note()) {
+  <p class="auth__alert auth__alert--error">
+    {{ error() || 'No se encontró la nota' }}
+  </p>
+} @else if (note(); as n) {
+  <article class="note">
+    <a class="note__back" routerLink="/dashboard">← Volver a las notas</a>
+
+    <header class="note__head">
+      <h1 class="note__title">{{ n.title }}</h1>
+      <span class="note__id">#{{ n.id }}</span>
+      <button
+        class="btn btn--ghost note__edit"
+        type="button"
+        (click)="openEdit()"
+      >
+        Editar
+      </button>
+    </header>
+
+    <dl class="meta">
+      <div class="meta__row">
+        <dt class="meta__key">Autor</dt>
+        <dd class="meta__value">
+          {{ n.author_name || n.author_username || '—' }}
+        </dd>
+      </div>
+
+      <div class="meta__row">
+        <dt class="meta__key">Estado</dt>
+        <dd class="meta__value">
+          <span [class]="'badge badge--' + n.status">
+            {{ statusLabel(n.status) }}
+          </span>
+        </dd>
+      </div>
+
+      <div class="meta__row">
+        <dt class="meta__key">Asignadas</dt>
+        <dd class="meta__value">
+          <ul class="chips">
+            @for (user of n.assigned; track user.id) {
+              <li class="chip chip--removable">
+                <span>{{ user.name || user.username }}</span>
+                <button
+                  class="chip__remove"
+                  type="button"
+                  (click)="removeAssignee(user.id)"
+                  [disabled]="saving()"
+                  [attr.aria-label]="'Quitar ' + (user.name || user.username)"
+                >
+                  ×
+                </button>
+              </li>
+            }
+          </ul>
+
+          @if (availableUsers().length) {
+            <select
+              class="meta__add"
+              (change)="addAssignee($event)"
+              [disabled]="saving()"
+              aria-label="Añadir persona asignada"
+            >
+              <option value="">+ Añadir…</option>
+              @for (user of availableUsers(); track user.id) {
+                <option [value]="user.id">{{ user.name || user.username }}</option>
+              }
+            </select>
+          } @else if (!n.assigned.length) {
+            <span class="meta__empty">—</span>
+          }
+        </dd>
+      </div>
+
+      <div class="meta__row">
+        <dt class="meta__key">Relacionadas</dt>
+        <dd class="meta__value">
+          <ul class="chips">
+            @for (rel of n.related; track rel.id) {
+              <li class="chip chip--removable">
+                <a [routerLink]="['/dashboard', rel.id]">{{ rel.title }}</a>
+                <button
+                  class="chip__remove"
+                  type="button"
+                  (click)="removeRelated(rel.id)"
+                  [disabled]="saving()"
+                  [attr.aria-label]="'Quitar ' + rel.title"
+                >
+                  ×
+                </button>
+              </li>
+            }
+          </ul>
+
+          @if (availableNotes().length) {
+            <select
+              class="meta__add"
+              (change)="addRelated($event)"
+              [disabled]="saving()"
+              aria-label="Añadir nota relacionada"
+            >
+              <option value="">+ Relacionar…</option>
+              @for (rel of availableNotes(); track rel.id) {
+                <option [value]="rel.id">{{ rel.title }}</option>
+              }
+            </select>
+          } @else if (!n.related.length) {
+            <span class="meta__empty">—</span>
+          }
+        </dd>
+      </div>
+
+      <div class="meta__row">
+        <dt class="meta__key">Creada</dt>
+        <dd class="meta__value">{{ n.created_at }}</dd>
+      </div>
+
+      <div class="meta__row">
+        <dt class="meta__key">Actualizada</dt>
+        <dd class="meta__value">{{ n.updated_at }}</dd>
+      </div>
+
+      <div class="meta__row">
+        <dt class="meta__key">Inicio</dt>
+        <dd class="meta__value">{{ n.start_date }}</dd>
+      </div>
+
+      <div class="meta__row">
+        <dt class="meta__key">Fin</dt>
+        <dd class="meta__value">{{ n.end_date }}</dd>
+      </div>
+    </dl>
+
+    @if (error()) {
+      <p class="auth__alert auth__alert--error">{{ error() }}</p>
+    }
+
+    <div class="note__content">
+      @if (n.content) {
+        {{ n.content }}
+      } @else {
+        <span class="meta__empty">Sin contenido.</span>
+      }
+    </div>
+
+    <app-note-form (saved)="onSaved($event)" />
+  </article>
+}

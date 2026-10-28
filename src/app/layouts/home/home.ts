@@ -5,12 +5,12 @@ import {
   RouterLinkActive,
   RouterOutlet,
 } from '@angular/router';
-import { CreateNote } from '../../components/create-note/create-note';
+import { NoteForm } from '../../components/note-form/note-form';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, CreateNote],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, NoteForm],
   styleUrl: './home.css',
   templateUrl: './home.html',
 })
@@ -18,7 +18,7 @@ export class Home {
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
 
-  private readonly createNote = viewChild.required(CreateNote);
+  private readonly noteForm = viewChild.required(NoteForm);
 
   protected readonly user = this.auth.user;
 
@@ -48,7 +48,7 @@ export class Home {
   }
 
   protected openCreateNote(): void {
-    this.createNote().open();
+    this.noteForm().open();
   }
 
   protected logout(): void {

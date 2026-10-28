@@ -10,7 +10,7 @@ export interface User {
   name: string;
   username: string;
   photo: string;
-  rol: UserRole | null;
+  rol: UserRole;
 }
 
 export interface CreateUserPayload {
@@ -18,7 +18,7 @@ export interface CreateUserPayload {
   username: string;
   password: string;
   photo?: string;
-  rol?: UserRole | null;
+  rol?: UserRole;
 }
 
 export interface LoginPayload {
@@ -39,5 +39,10 @@ export class UsersService {
   /** POST /users/login — valida credenciales. */
   login(payload: LoginPayload): Observable<User> {
     return this.http.post<User>(`${this.baseUrl}/login`, payload);
+  }
+
+  /** GET /users — lista de usuarios (para asignar a notas). */
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.baseUrl);
   }
 }

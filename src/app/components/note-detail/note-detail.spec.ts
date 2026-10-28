@@ -1,18 +1,19 @@
 import { provideHttpClient } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CreateNote } from './create-note';
+import { provideRouter } from '@angular/router';
+import { NoteDetail } from './note-detail';
 
-describe('CreateNote', () => {
-  let component: CreateNote;
-  let fixture: ComponentFixture<CreateNote>;
+describe('NoteDetail', () => {
+  let component: NoteDetail;
+  let fixture: ComponentFixture<NoteDetail>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CreateNote],
-      providers: [provideHttpClient()],
+      imports: [NoteDetail],
+      providers: [provideHttpClient(), provideRouter([])],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CreateNote);
+    fixture = TestBed.createComponent(NoteDetail);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

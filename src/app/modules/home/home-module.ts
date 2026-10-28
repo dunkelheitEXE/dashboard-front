@@ -6,6 +6,7 @@ import { Home } from '../../layouts/home/home';
 import { Login } from '../../components/login/login';
 import { Signup } from '../../components/signup/signup';
 import { Dashboard } from '../../components/dashboard/dashboard';
+import { NoteDetail } from '../../components/note-detail/note-detail';
 import { authGuard } from '../../guards/auth.guard';
 
 const routes: Routes = [
@@ -31,6 +32,10 @@ const routes: Routes = [
       {
         path: '',
         component: Dashboard
+      },
+      {
+        path: ':id',
+        component: NoteDetail
       }
     ]
   }

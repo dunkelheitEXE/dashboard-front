@@ -9,7 +9,20 @@ export type TaskStatus =
   | 'blocked'
   | 'inreview';
 
-/** Nota tal como la devuelve el backend (incluye el autor resuelto por el join). */
+/** Usuario asignado a una nota (resumen). */
+export interface NoteUserRef {
+  id: number;
+  name: string;
+  username: string;
+}
+
+/** Nota relacionada (resumen). */
+export interface NoteRef {
+  id: number;
+  title: string;
+}
+
+/** Nota tal como la devuelve el backend (incluye autor, asignados y relacionadas). */
 export interface Note {
   id: number;
   title: string;
@@ -22,6 +35,8 @@ export interface Note {
   updated_at: string;
   start_date: string;
   end_date: string;
+  assigned: NoteUserRef[];
+  related: NoteRef[];
 }
 
 export interface CreateNotePayload {
@@ -31,6 +46,8 @@ export interface CreateNotePayload {
   content?: string | null;
   start_date?: string | null;
   end_date?: string | null;
+  assigned?: number[];
+  related?: number[];
 }
 
 export type UpdateNotePayload = Partial<CreateNotePayload>;
@@ -75,5 +92,19 @@ export class NotesService {
   /** DELETE /notes/:id — elimina una nota. */
   deleteNote(id: number): Observable<Note> {
     return this.http.delete<Note>(`${this.baseUrl}/${id}`);
+  }
+
+  /** PUT /notes/:id/assignees — reemplaza los usuarios asignados. */
+  setAssignees(id: number, userIds: number[]): Observable<Note> {
+    return this.http.put<Note>(`${this.baseUrl}/${id}/assignees`, {
+      users: userIds,
+    });
+  }
+
+  /** PUT /notes/:id/relations — reemplaza las notas relacionadas. */
+  setRelatedNotes(id: number, noteIds: number[]): Observable<Note> {
+    return this.http.put<Note>(`${this.baseUrl}/${id}/relations`, {
+      notes: noteIds,
+    });
   }
 }

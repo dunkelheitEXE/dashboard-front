@@ -13,6 +13,10 @@
       Todavía no hay notas. Crea una con el botón “+”.
     </p>
   } @else {
+    @if (actionError()) {
+      <p class="auth__alert auth__alert--error">{{ actionError() }}</p>
+    }
+
     <div class="table-wrap">
       <table class="table">
         <thead>
@@ -20,11 +24,14 @@
             <th>ID</th>
             <th>Título</th>
             <th>Autor</th>
+            <th>Asignadas</th>
             <th>Estado</th>
             <th>Creada</th>
             <th>Actualizada</th>
             <th>Inicio</th>
             <th>Fin</th>
+            <th class="table__action-head">Ver</th>
+            <th class="table__action-head">Eliminar</th>
           </tr>
         </thead>
         <tbody>
@@ -33,6 +40,17 @@
               <td class="table__id">{{ note.id }}</td>
               <td class="table__title">{{ note.title }}</td>
               <td>{{ note.author_name || note.author_username || '—' }}</td>
+              <td class="table__assignees">
+                @if (note.assigned.length) {
+                  <ul class="chips">
+                    @for (user of note.assigned; track user.id) {
+                      <li class="chip">{{ user.name || user.username }}</li>
+                    }
+                  </ul>
+                } @else {
+                  <span class="table__muted">—</span>
+                }
+              </td>
               <td>
                 <span [class]="'badge badge--' + note.status">
                   {{ statusLabel(note.status) }}
@@ -42,6 +60,28 @@
               <td>{{ note.updated_at }}</td>
               <td>{{ note.start_date }}</td>
               <td>{{ note.end_date }}</td>
+              <td class="table__action">
+                <a
+                  class="icon-link"
+                  [routerLink]="['/dashboard', note.id]"
+                  [attr.aria-label]="'Ver nota ' + note.title"
+                  title="Ver"
+                >
+                  <img src="assets/eye-solid-full.svg" alt="" width="14" height="14" />
+                </a>
+              </td>
+              <td class="table__action">
+                <button
+                  class="icon-link"
+                  type="button"
+                  (click)="deleteNote(note.id, note.title)"
+                  [disabled]="deletingId() === note.id"
+                  [attr.aria-label]="'Eliminar nota ' + note.title"
+                  title="Eliminar"
+                >
+                  <img src="assets/trash-solid-full.svg" alt="" width="14" height="14" />
+                </button>
+              </td>
             </tr>
           }
         </tbody>

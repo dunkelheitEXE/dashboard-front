@@ -1,7 +1,9 @@
 <dialog #dialog class="modal">
   <form class="modal__form" [formGroup]="form" (ngSubmit)="onSubmit()">
     <header class="modal__head">
-      <h2 class="modal__title">Nueva nota</h2>
+      <h2 class="modal__title">
+        {{ editingId() === null ? 'Nueva nota' : 'Editar nota' }}
+      </h2>
       <button
         class="icon-btn"
         type="button"
@@ -26,16 +28,28 @@
       }
     </label>
 
-    <label class="field">
-      <span class="field__label">Estado</span>
-      <select class="field__input" formControlName="status">
-        @for (option of statuses; track option.value) {
-          <option [value]="option.value">{{ option.label }}</option>
-        }
-      </select>
-    </label>
+    <div class="modal__grid">
+      <label class="field">
+        <span class="field__label">Autor</span>
+        <select class="field__input" formControlName="author">
+          <option value="">Sin autor</option>
+          @for (user of users(); track user.id) {
+            <option [value]="user.id">{{ user.name || user.username }}</option>
+          }
+        </select>
+      </label>
 
-    <div class="modal__dates">
+      <label class="field">
+        <span class="field__label">Estado</span>
+        <select class="field__input" formControlName="status">
+          @for (option of statuses; track option.value) {
+            <option [value]="option.value">{{ option.label }}</option>
+          }
+        </select>
+      </label>
+    </div>
+
+    <div class="modal__grid">
       <label class="field">
         <span class="field__label">Fecha de inicio</span>
         <input class="field__input" type="date" formControlName="start_date" />
@@ -51,7 +65,7 @@
       <span class="field__label">Contenido</span>
       <textarea
         class="field__input field__input--area"
-        rows="5"
+        rows="6"
         formControlName="content"
         placeholder="Escribe algo…"
       ></textarea>
@@ -66,7 +80,7 @@
         Cancelar
       </button>
       <button class="btn btn--primary" type="submit" [disabled]="loading()">
-        {{ loading() ? 'Creando…' : 'Crear nota' }}
+        {{ loading() ? 'Guardando…' : 'Guardar' }}
       </button>
     </footer>
   </form>

@@ -1,0 +1,152 @@
+.note {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 820px;
+}
+
+.note__state {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.note__back {
+  align-self: flex-start;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.note__back:hover {
+  color: var(--text);
+}
+
+.note__head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.note__title {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.note__id {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.note__edit {
+  margin-left: auto;
+  align-self: center;
+}
+
+/* --- Metadatos (estilo Notion/Obsidian) --- */
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 14px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.meta__row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-height: 28px;
+}
+
+.meta__key {
+  flex-shrink: 0;
+  width: 110px;
+  padding-top: 3px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.meta__value {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding-top: 3px;
+  font-size: 0.875rem;
+}
+
+.meta__empty {
+  color: var(--text-muted);
+}
+
+.meta__add {
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px dashed var(--border);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.meta__add:hover:not(:disabled) {
+  color: var(--text);
+  border-color: var(--primary);
+}
+
+/* --- Chips con botón de quitar --- */
+.chip--removable {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding-right: 4px;
+}
+
+.chip--removable a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.chip--removable a:hover {
+  color: var(--primary);
+}
+
+.chip__remove {
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  font-size: 0.8125rem;
+  line-height: 1;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.chip__remove:hover:not(:disabled) {
+  color: var(--danger);
+  background: rgba(248, 113, 113, 0.15);
+}
+
+/* --- Contenido --- */
+.note__content {
+  padding: 20px;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
